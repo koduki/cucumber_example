@@ -3,19 +3,17 @@ require 'spec/expectations'
 require 'cucumber/formatter/unicode'
 
 
-# Webrat
-require 'webrat'
+# Capybara
+require 'capybara'
+require 'capybara/dsl'
+require 'capybara/cucumber'
+require 'capybara/mechanize/cucumber'
 
-require 'test/unit/assertions'
-World(Test::Unit::Assertions)
+Capybara.default_driver = :mechanize
+Capybara.javascript_driver = :mechanize
+Capybara.app_host = 'http://www.google.co.jp'
+Capybara.run_server = false
 
-Webrat.configure do |config|
-  config.mode = :mechanize
-end
 
-World do
-  session = Webrat::Session.new
-  session.extend(Webrat::Methods)
-  session.extend(Webrat::Matchers)
-  session
-end
+
+World(Capybara)

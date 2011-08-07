@@ -13,13 +13,13 @@ end
 end
 
 もし /^送信ボタンをクリックする$/ do 
-  @response = click_button
+  @response = submit
 end
 
 もし /^"(.*)"リンクをクリックする$/ do |link|
   @response = click_link(link)
 end
- 
+
 もし /^"(.*)"に"(.*)"と入力する$/ do |field, value|
   @response = fill_in(field, :with => value) 
 end
@@ -42,4 +42,11 @@ end
  
 もし /^パスが"(.*)"のファイルを"(.*)"に添付する $/ do |path, field|
   @response = attach_file(field, path)
+end
+
+#
+# domasific define
+#
+もし /^検索トップをクリックする$/ do 
+  @response = find(:xpath, "//h3/a", "EROROR").click
 end

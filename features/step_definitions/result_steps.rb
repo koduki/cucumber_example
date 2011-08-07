@@ -1,11 +1,11 @@
 # -*- encoding: UTF-8 -*-
  
 ならば /^"(.*)"と表示される$/ do |text|
-  response_body.to_s.should =~ /#{text}/m
+  page.should have_content(text)
 end
  
 ならば /^"(.*)"と表示されない$/ do |text|
-  response_body.to_s.should_not =~ /#{text}/m
+  page.should have_content(text)
 end
  
 ならば /^(\w+)メッセージが表示さる$/ do |message_type|
