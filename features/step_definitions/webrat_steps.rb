@@ -11,7 +11,11 @@ end
 もし /^"(.*)"ボタンをクリックする$/ do |button|
   @response = click_button(button)
 end
- 
+
+もし /^送信ボタンをクリックする$/ do 
+  @response = click_button
+end
+
 もし /^"(.*)"リンクをクリックする$/ do |link|
   @response = click_link(link)
 end
