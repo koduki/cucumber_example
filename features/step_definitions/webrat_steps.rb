@@ -1,11 +1,11 @@
 # -*- encoding: UTF-8 -*-
 
 前提 /^(.*)ページを表示している$/ do |path|
-  @response = visit "http://localhost/php_with_cucumber#{path}"
+  @response = visit "http://www.google.co.jp#{path}"
 end
  
 もし /^(.*)ページを表示する$/ do |path|
-  @response = visit "http://localhost/php_with_cucumber#{path}"
+  @response = visit "http://www.google.co.jp#{path}"
 end
  
 もし /^"(.*)"ボタンをクリックする$/ do |button|

@@ -1,5 +1,7 @@
 # RSpec
 require 'spec/expectations'
+require 'cucumber/formatter/unicode'
+
 
 # Webrat
 require 'webrat'
