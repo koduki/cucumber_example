@@ -7,13 +7,19 @@ require 'cucumber/formatter/unicode'
 require 'bundler/setup'
 require 'capybara/cucumber'
 require 'capybara-webkit'
+require 'capybara/firebug'
 
-Capybara.default_driver = :webkit
-Capybara.javascript_driver = :webkit
+
+Capybara.default_driver = :selenium_with_firebug
+Capybara.javascript_driver = :selenium_with_firebug
+#Capybara.default_driver = :webkit
+#Capybara.javascript_driver = :webkit
+
+
 Capybara.app_host = 'http://www.google.co.jp'
 Capybara.run_server = false
 
-
+=begin
 if %w(yes y on).include?(ENV['HEADLESS'])
   require 'headless'
  
@@ -24,5 +30,6 @@ if %w(yes y on).include?(ENV['HEADLESS'])
     headless.destroy
   end
 end
+=end
 
 World(Capybara)
