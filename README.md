@@ -4,11 +4,11 @@ non rails apps bdd test example.
 
 Init
 ---------------
-capybara-webkit install
+### capybara-webkit install
 
 (https://github.com/thoughtbot/capybara-webkit/blob/v0.6.1/README.md)
 
-gem install
+### gems install:
     gem install bundler
     bundle
 
