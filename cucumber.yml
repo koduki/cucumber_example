@@ -1,1 +1,2 @@
-default: features
+default: features BROWSER='webkit'
+firefox: features BROWSER='firefox'
