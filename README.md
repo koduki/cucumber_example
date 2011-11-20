@@ -18,8 +18,10 @@ http://code.google.com/p/selenium/wiki/ChromeDriver
 
 Run
 --------------
-### default(webkit/nox)
+### default(akephalos)
     cucumber
+### default(headless-webkit)
+    cucumber -p webkit
 ### selenium/firefox
     cucumber -p firefox
 ### selenium/IE
