@@ -1,21 +1,30 @@
-# -*- encoding: UTF-8 -*-
- 
-ならば /^"(.*)"と表示される$/ do |text|
+# -*- coding: utf-8 -*-
+
+ならば /^"(.*)"と表示されている$/ do |text|
   page.should have_content(text)
 end
- 
-ならば /^"(.*)"と表示されない$/ do |text|
-  page.should have_content(text)
+
+ならば /^"(.*)"とタイトルが表示されている$/ do |text|
+  page.should have_xpath('.//title', :text => text)
+end
+
+ならば /^画像:"(.*)"が表示されている$/ do |text|
+  page.should have_xpath(".//img[@src='#{text}']")
+end
+
+ならば /^LOGOが表示されている$/ do
+  page.should have_xpath("id('logo')")
+end
+
+ならば /^"(.*)"と表示されていない$/ do |text|
+  page.should_not have_content(text)
 end
  
-ならば /^(\w+)メッセージが表示さる$/ do |message_type|
-  @response.should have_xpath("//*[@class='#{message_type}']")
+ならば /画面エビデンスを撮る/ do
+  if page.driver.class == "Capybara::Selenium::Driver"
+    wait_until do
+        page.driver.browser.save_screenshot(ss_path)
+    end
+  end
 end
- 
-ならば /^(.*)リクエストが失敗する/ do |_|
-  @response.should_not be_successful
-end
- 
-ならば /ページ読み込みが成功する/ do
-  @response.code.should == "200"
-end
+

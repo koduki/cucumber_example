@@ -4,15 +4,27 @@ require 'rspec/expectations'
 require 'cucumber/formatter/unicode'
 require 'capybara/cucumber'
 
-# target url.
-Capybara.app_host = 'http://www.google.co.jp'
-
-
 # test setting
-if ENV['BROWSER'] == 'firefox'
+browser_type = ENV['BROWSER'].gsub("'", "")
+case browser_type
+when "firefox"
   require 'capybara/firebug'
-  Capybara.default_driver = :selenium_with_firebug
-  Capybara.javascript_driver = :selenium_with_firebug
+  Capybara.default_driver = :selenium
+  Capybara.javascript_driver = :selenium
+when "IE"
+  require 'selenium-webdriver'
+  Capybara.register_driver :selenium_internet_explorer do |app|
+    @driver = Capybara::Selenium::Driver.new(app, :browser => :internet_explorer)
+  end
+  Capybara.javascript_driver = :selenium_internet_explorer
+  Capybara.default_driver = :selenium_internet_explorer
+when "chrome"
+  require 'selenium-webdriver'
+  Capybara.register_driver :selenium_chrome do |app|
+    Capybara::Selenium::Driver.new(app, :browser => :chrome)
+  end
+  Capybara.javascript_driver = :selenium_chrome 
+  Capybara.default_driver = :selenium_chrome
 else
   require 'capybara-webkit'
   Capybara.default_driver = :webkit
@@ -33,4 +45,29 @@ else
 end
 Capybara.run_server = false
 
-World(Capybara)
+module ScreenShotHelper
+ require 'singleton'   
+ require 'fileutils'
+ 
+ class Counter
+   include Singleton
+   def initialize
+     @count = 0
+   end
+   def get
+     @count += 1
+   end
+ end
+
+ def ss_path
+   browser_type = ENV['BROWSER'].gsub("'", "")
+   dir = "screenshot/#{browser_type}"
+   FileUtils.mkdir_p dir
+
+   path = "#{dir}/#{sprintf "%04d", Counter.instance.get}.png"
+   p path
+   path
+ end
+end
+
+World(Capybara, ScreenShotHelper)

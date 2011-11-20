@@ -1,2 +1,4 @@
 default: features BROWSER='webkit'
 firefox: features BROWSER='firefox'
+IE: features BROWSER='IE'
+chrome: features BROWSER='chrome'
